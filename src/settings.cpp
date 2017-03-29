@@ -24,6 +24,18 @@ void settings::setQuiz(quiz *temp)
     theQuiz = temp;
 }
 
+int settings::getTime()
+{
+    return oldTime*1000;
+}
+
+QString settings::getInfo()
+{
+    return "\n \tQuizFile: "+ QFileInfo(fileName).fileName() +
+           "\n \tQuestions: " + QString::number(numToAsk) +
+           "\n \tTime: " + QString::number(oldTime);
+}
+
 void settings::on_btnFileBrowse_clicked()
 {
     fileName = QString();
@@ -38,6 +50,7 @@ void settings::on_btnFileBrowse_clicked()
         ui->lblError->setText("");
         ui->txtNumQuest->setDisabled(false);
         ui->txtTime->setDisabled(false);
+        ui->txtNumQuest->setPlaceholderText("1 to "+QString::number(theQuiz->maxQuestions()));
     }
     else
     {
@@ -68,8 +81,8 @@ void settings::on_btnOk_clicked()
     }
 
     fileName = ui->txtFile->toPlainText();
-    numToAsk = ui->txtFile->toPlainText().toInt();
-    oldTime = ui->txtFile->toPlainText().toInt();
+    numToAsk = ui->txtNumQuest->toPlainText().toInt();
+    oldTime = ui->txtTime->toPlainText().toInt();
     valid = true;
     this->close();
 }

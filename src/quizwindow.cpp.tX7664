@@ -20,10 +20,9 @@ void quizWindow::setQuiz(quiz *temp)
 
 void quizWindow::beginQuiz()
 {
-    theQuiz->start();
     dataArray = theQuiz->getDataArray();
-
-    updateQuestion();
+    theQuiz->randomize();
+    nextQuestion();
 }
 
 void quizWindow::closeEvent(QCloseEvent *event)
@@ -55,24 +54,19 @@ void quizWindow::checkAnswer()
             {
                 if(allButtons[i]->isChecked())
                 {
-                    if(j==((dataArray.at(theQuiz->getCurrentQuestion())->getAnswer())-1))
+                    if(theQuiz->checkAnswer(j))
                     {
-                        theQuiz->checkAnswer(j+1);
-
+                        ui->lblCorrect->setText(QString::number((ui->lblCorrect->text().toInt()+1)));
                     }
                     else
                     {
-                        theQuiz->checkAnswer(j+1);
-
+                        ui->lblWrong->setText(QString::number((ui->lblWrong->text().toInt()+1)));
                     }
                     break;
                 }
             }
         }
     }
-
-    ui->lblCorrect->setText(QString::number(theQuiz->getCorrect()));
-    ui->lblWrong->setText(QString::number(theQuiz->getWrong()));
 }
 
 /************************************************************
@@ -85,7 +79,7 @@ void quizWindow::checkAnswer()
  ************************************************************
  ***********************************************************/
 
-void quizWindow::updateQuestion()
+void quizWindow::nextQuestion()
 {
     ui->lblQuestion->setText(dataArray.at(theQuiz->getCurrentQuestion())->getQuestion());
 
@@ -174,24 +168,10 @@ void quizWindow::updateQuestion()
 
 void quizWindow::on_btnSubmit_clicked()
 {
-    qDebug()<< "AT START";
     checkAnswer();
-    qDebug()<< "AT IF";
 
-    if(theQuiz->getCurrentQuestion()<theQuiz->numToAsk())
+    if(theQuiz->getCurrentQuestion()<theQuiz->maxQuestions())
     {
-        qDebug()<< "IN IF";
         theQuiz->nextQuestion();
-        updateQuestion();
     }
-    else
-    {
-        qDebug()<< "IN ELSE";
-        emit imClosing();
-    }
-}
-
-void quizWindow::on_btnQuit_clicked()
-{
-    emit imClosing();
 }

@@ -260,7 +260,7 @@
           <set>Qt::ImhDigitsOnly</set>
          </property>
          <property name="placeholderText">
-          <string>0 to ??</string>
+          <string>Time in seconds</string>
          </property>
         </widget>
        </item>

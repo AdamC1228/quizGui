@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QDebug>
+#include <QFileInfo>
 #include "quiz.h"
 
 namespace Ui {
@@ -22,6 +23,9 @@ public:
     ~settings();
 
     bool isValid();
+    int getTime();
+    QString getInfo();
+
 private slots:
     void closeEvent(QCloseEvent *event);
 

@@ -18,15 +18,23 @@ SOURCES += main.cpp\
     settings.cpp \
     quiz.cpp \
     question.cpp \
-    filehelper.cpp
+    filehelper.cpp \
+    scoresheet.cpp
 
 HEADERS  += quizwindow.h \
     landing.h \
     settings.h \
     question.h \
     filehelper.h \
-    quiz.h
+    quiz.h \
+    scoresheet.h
 
 FORMS    += quizwindow.ui \
     landing.ui \
-    settings.ui
+    settings.ui \
+    scoresheet.ui
+
+DISTFILES += \
+    MyIcon.ico
+
+RC_ICONS = MyIcon.ico

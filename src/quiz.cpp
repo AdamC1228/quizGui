@@ -1,4 +1,5 @@
 #include "quiz.h"
+#include <algorithm>
 
 quiz::quiz()
 {
@@ -65,18 +66,21 @@ void quiz::randomize()
     }
 }
 
-void quiz::checkAnswer(int response)
+bool quiz::checkAnswer(int response)
 {
-        if(dataArray.at(currentQuestion)->getAnswer() == response)
-        {
-            numCorrect++;
-        }
-        else
-        {
-            numIncorrect++;
-        }
+    if(dataArray.at(currentQuestion)->getAnswer() == response)
+    {
+            currentQuestion++;
+        numCorrect++;
+        return true;
+    }
+    else
+    {
+            currentQuestion++;
+        numIncorrect++;
+        return false;
+    }
 
-  currentQuestion++;
 }
 
 QString quiz::quizOver()
@@ -132,6 +136,11 @@ int quiz::getWrong()
 int quiz::maxQuestions()
 {
     return myHelper.getTotal();
+}
+
+QVector<question *> quiz::getDataArray()
+{
+    return dataArray;
 }
 
 int quiz::numToAsk()
@@ -195,4 +204,11 @@ void quiz::start()
     randomize();
     quizTimer.start();
     nextQuestion();
+}
+
+void quiz::reset()
+{
+    numCorrect =0;
+    numIncorrect =0;
+    currentQuestion = 0;
 }

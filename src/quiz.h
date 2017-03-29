@@ -15,7 +15,7 @@ public:
     void randomize();
     void start();
     void nextQuestion();
-    void checkAnswer(int);
+    bool checkAnswer(int);
     int setup(QString);
 
     int setQuizLength(int amount);
@@ -26,6 +26,8 @@ public:
     int getWrong();
     int numToAsk();
     QString quizOver();
+    QVector<question *> getDataArray();
+    void reset();
 private:
 
     //Variables
